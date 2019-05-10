@@ -1,69 +1,92 @@
 <template>
-<div class="app-form">
-      <h2>Calcula tu Finiquito</h2>
-      <p>Esta calculadora es solamente para fines informativos <p>
-      <h4>Salary Per Day is ${{dailyPayment}}</h4>
-      <p></p>
-      <input type="range" name="salary"
-             min="170" max="5000" v-model="dailyPayment">
+<v-content class="app-form-container" >
+    <div class="app-form">
+      <h4>Cual es tu salario diario?</h4>
+      <p>${{dailyPayment}}</p>
+      <v-slider max="1500" min="200" v-model="dailyPayment"></v-slider>
 
-      <h4>Fecha De Ingreso A tu empleo</h4>
-      <select class="" name="">
-        <option value="">25</option>
-      </select>
-      <select class="" name="month">
-        <option v-for="month in months">{{month}}</option>
-      </select>
-      <select>
-        <option value="">2018</option>
-      </select>
+      <h4>Cuantos dias de aguinaldo tienes por año?</h4>
+      <p>{{christmasBonus}} Días</p>
+      <v-slider max="60" min="5" v-model="christmasBonus"></v-slider>
 
-      <h4>Fecha De Baja en tu empleo</h4>
-      <select class="" name="">
-        <option value="">25</option>
-      </select>
-      <select class="" name="month">
-        <option v-for="month in months">{{month}}</option>
-      </select>
-      <select>
-        <option value="">2018</option>
-      </select>
+      <h4>Fecha de ingreso</h4>
+      <v-menu>
+        <v-text-field v-bind:value="fechaIngreso" slot="activator" prepend-icon="date_range"></v-text-field>
+        <v-date-picker v-model="fechaIngreso" header-color="#004FCA"></v-date-picker>
+      </v-menu>
+
+      <h4>Fecha de Baja</h4>
+      <v-menu>
+        <v-text-field v-bind:value="fechaBaja" slot="activator" prepend-icon="date_range"></v-text-field>
+        <v-date-picker v-model="fechaBaja" header-color="#004FCA"></v-date-picker>
+      </v-menu>
+
 
       <h4>Te adeudan vacaciones?</h4>
-      <button type="button">SI</button>
-      <button type="button" name="button">NO</button>
+      <v-btn type="button" color="#004FCA" dark v-on:click="hasVacations = true"> SI</v-btn>
+      <v-btn type="button" color="#004FCA" dark v-on:click="hasVacations = false"> NO</v-btn>
 
-      <h4>Dias de aguinaldo</h4>
-      <select>
-        <option value="">10</option>
-      </select>
+      <div v-if="hasVacations">
+      <h4>Cuantos Dias de vacaciones tienes al año?</h4>
+      <p>{{vacationTotalDays}} Días</p>
+      <v-slider max="35" min="6" v-model="vacationTotalDays"></v-slider>
 
-
-      <div>
-        <h3>Tu pago total</h3>
-        <p>$15000</p>
+      <h4>Cual es tu prima vacacional?</h4>
+      <p>{{vacationBonus}}%</p>
+      <v-slider max="100" min="5" v-model="vacationBonus"></v-slider>
       </div>
-      <button>Calcular</button>
+
+
   </div>
+</v-content>
 </template>
 
 <script>
 export default {
     data(){    
       return{
-      title:"Form Component"
+          title:"Form Component",
+          fechaIngreso:null,
+          fechaBaja:null,
+          dailyPayment:"500",
+          hasVacations:false,
+          vacationTotalDays:10,
+          vacationBonus:25,
+          christmasBonus:15
+    
     }
 }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../assets/common-styles.scss';
 
 h2,h4{
-  font-family:$primaryFont;
+  font-family:$secondaryFont;
 }
 p{
   font-family:$secondaryFont;
+}
+.v-input{
+  width:85%;
+  margin-top:0px;
+}
+.v-btn{
+  margin:7px 10px 7px 0px;
+  margin-top:5px;
+  margin-right:10px;
+}
+.v-menu{
+  display: block;
+  width:85%;
+}
+.app-form{
+  padding:50px 80px;
+      p{
+        font-size:25px;
+        font-weight: bold;
+        margin:0px 0px;
+      }
 }
 </style>

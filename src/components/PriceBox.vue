@@ -1,11 +1,11 @@
 <template>
 <div class="price-box">
-<h1>Your Total Payment will be</h1>
-<p class="total-payment"><span>$</span> 20000</p>
+<h1>Tu pago total sera</h1>
+<p class="total-payment"><span>$</span>20000</p>
 
 <div class="breakdown">
 <p>Vacaciones</p>
-<span>$1000</span>
+<span>{{vacationDays}}</span>
 </div>
 
 <div class="breakdown">
@@ -48,15 +48,11 @@ export default{
 <style lang="scss">
 @import '../assets/common-styles.scss';
 
-.price-box{
-    background-color:white;
-    padding:45px;
-}
-
 .total-payment{
     color:#004FCA;
     font-weight:bold;
     font-size:50px;
+    margin:15px 0px;
         span{
             font-size:20px;
         }
@@ -74,18 +70,19 @@ span{
 }
 
 .price-box{
-    border:2px solid gainsboro;
-    border-radius:6px;
-    height:400px;
-    width:500px;
-
     button{
         clear:both;
-        background-color:red;
+        background-color:#F80021;
+        border-radius:6px;
+        color:#FEE2E6;
+        padding:10px 30px;
+        border:0px;
+        //  box-shadow: 0px 10px 70px #F80021;
+         margin-top:102px;
     }
 }
 .breakdown{
-    width:20%;
+    width:32%;
     float:left;
 }
 </style>
