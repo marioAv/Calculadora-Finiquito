@@ -36,6 +36,15 @@
       <v-slider max="100" min="5" v-model="vacationBonus"></v-slider>
       </div>
 
+      <!--TOTAL VACATION PAYMENT-->
+      <!-- <h1>{{vacationTotalDays * dailyPayment}}</h1> -->
+
+      <!--TOTAL CHRISTMAS PAYMENT --> 
+      <v-btn type="button" color="#004FCA" dark 
+             v-on:click="datenumber" v-if="fechaBaja && fechaIngreso">Calcular Aguinaldo</v-btn>
+
+      <p v-if="diasTrabajados"> ${{ dailyPayment * christmasBonus / 365 * diasTrabajados}}</p>
+
 
   </div>
 </v-content>
@@ -48,15 +57,30 @@ export default {
           title:"Form Component",
           fechaIngreso:null,
           fechaBaja:null,
-          dailyPayment:"500",
+          dailyPayment:500,
           hasVacations:false,
           vacationTotalDays:10,
           vacationBonus:25,
-          christmasBonus:15
-    
-    }
+          christmasBonus:15,
+
+          fechaBajaMseconds:null,
+          fechaIngresoMseconds:null,
+          diasTrabajados:null,
+          }
+    },
+    methods: {
+        datenumber: function getDate(){
+        let baja = Date.parse(this.fechaBaja);
+        let ingreso = Date.parse(this.fechaIngreso);
+
+        this.fechaBajaMseconds = baja;
+        this.fechaIngresoMseconds = ingreso;
+
+        this.diasTrabajados= (baja - ingreso) / (1000 * 60 * 60 * 24);
+ }
+    },
 }
-}
+
 </script>
 
 <style lang="scss" scoped>
