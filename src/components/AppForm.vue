@@ -1,6 +1,11 @@
 <template>
 <v-content class="app-form-container" >
     <div class="app-form">
+    <v-btn type="button" color="#F80021" dark>Despido Injustificado</v-btn>
+    <v-btn type="button" color="#F80021" dark>Renuncia Voluntaria</v-btn>
+
+    <h1 v-bind:ninjas="christmasBonus"> </h1>
+
       <h4>Cual es tu salario diario?</h4>
       <p>${{dailyPayment}}</p>
       <v-slider max="1500" min="200" v-model="dailyPayment"></v-slider>
@@ -43,7 +48,11 @@
       <v-btn type="button" color="#004FCA" dark 
              v-on:click="datenumber" v-if="fechaBaja && fechaIngreso">Calcular Aguinaldo</v-btn>
 
-      <p v-if="diasTrabajados"> ${{ dailyPayment * christmasBonus / 365 * diasTrabajados}}</p>
+      <p v-if="diasTrabajados"> ${{dailyPayment * christmasBonus / 365 * diasTrabajados}}</p>
+
+      <h1>Pago de Vacaciones sera de ${{vacationTotalDays * dailyPayment}}</h1>
+
+      <h1>La prima vacional es ${{vacationTotalDays * dailyPayment * vacationBonus/100}}</h1>
 
 
   </div>
@@ -75,6 +84,10 @@ export default {
 
         this.fechaBajaMseconds = baja;
         this.fechaIngresoMseconds = ingreso;
+
+        if(this.fechaIngresoMseconds < 1546214400000){
+        ingreso = 1546214400000
+        }
 
         this.diasTrabajados= (baja - ingreso) / (1000 * 60 * 60 * 24);
  }
